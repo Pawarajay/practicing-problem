@@ -1,0 +1,135 @@
+
+
+#include <iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node(int data)
+    {
+        this->data=data;
+        this->next=NULL;
+    }
+};
+void insertHeadNode(Node* &head,int data)
+{
+    Node*temp=new Node(data);
+    temp->next=head;
+    head=temp;
+}
+void print(Node*head)
+{
+    if(head ==NULL)
+    return ;
+    Node*temp=head;
+    while(temp !=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }cout<<endl;
+}
+void deleteNode(Node* &head,int position)
+{
+    if(head==NULL){
+    Node*temp=head;
+    head=head->next;
+    temp->next=NULL;
+    delete temp;
+}
+else{
+    Node*curr=head;
+    
+    Node*prev=NULL;
+    int cnt=1;
+    while(cnt<position)
+    {
+        prev=curr;
+        curr=curr->next;
+        cnt++;
+    }
+    prev->next=curr->next;
+    curr->next=NULL;
+    delete curr;
+    
+}
+}
+void inseertAtTail(Node* &tail,int data)
+{
+    Node*temp=new Node(data);
+    tail->next=temp;
+    tail=temp;
+}
+Node*ReverseLinkedList(Node* &head)
+{
+    Node*prevPointer=NULL;
+    Node*curr=head;
+   
+    Node*nextPointer=NULL;
+    while(curr!=NULL)
+    {
+        nextPointer=curr->next;
+        curr->next=prevPointer;
+        
+        prevPointer=curr;
+        curr=nextPointer;
+    }
+    return prevPointer;
+}
+
+Node*FindMiddleNode(Node* &head)
+{
+    if(head==NULL)
+    return NULL;
+    
+    Node*slow=head;
+    Node*fast=head->next;
+    
+    while(slow!=NULL || fast!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next;
+    }
+    return slow;
+}
+int main()
+{
+   
+    cout<<endl;
+    Node*node=new Node(1);
+    Node*head=node;
+    Node*tail=node;
+    print(head);
+    
+    insertHeadNode(head,2);
+    print(head);
+    
+    insertHeadNode(head,3);
+    print(head);
+    
+    insertHeadNode(head,4);
+    print(head);
+    
+    // cout<<endl;
+    
+    insertHeadNode(head,5);
+    print(head);
+    
+    cout<<"Delete the Node  "<<endl;
+    deleteNode(head,2);
+    print(head);
+    
+    cout<<"inseert At Tail"<<endl;
+    inseertAtTail(tail,10);
+    print(head);
+    
+    // cout<<"Reverse the linked list"<<endl;
+    // ReverseLinkedList(head);
+    // print(head);
+    
+    cout<<"Middle Node "<<endl;
+    FindMiddleNode(head);
+    print(head);
+    return 0;
+    
+}
